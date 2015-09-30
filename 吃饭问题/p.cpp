@@ -1,24 +1,25 @@
 #include<cstdio>
 int main()
 {
-    for(int a=1;a<=3;++a)
+    for(int aEat=1;aEat<=3;++aEat)
     {
-        for(int b=1;b<=3;++b)
+        for(int bEat=1;bEat<=3;++bEat)
         {
-            for(int c=1;c<=3;++c)
+            for(int cEat=1;cEat<=3;++cEat)
             {
-                int aCount=(b>a) + (a==c),
-                    bCount=(a>b) + (a>c),
-                    cCount=(c>b) + (b>a);
-                if ( ((a<b)==(aCount>bCount)) &&
-                     ((a<c)==(aCount>cCount)) &&
-                     ((b<c)==(bCount>cCount))) //饭量越小, count越大
+                int aCount=(bEat>aEat) + (aEat==cEat),
+                    bCount=(aEat>bEat) + (aEat>cEat),
+                    cCount=(cEat>bEat) + (bEat>aEat);
+                    
+                if ( ((aEat<bEat)==(aCount>bCount)) &&
+                     ((aEat<cEat)==(aCount>cCount)) &&
+                     ((bEat<cEat)==(bCount>cCount)) ) //楗噺瓒婂皬, count瓒婂ぇ
                 {
                     for(int i=1;i<=3;++i)
                     {
-                        if(a==i) printf("A");
-                        if(b==i) printf("B");
-                        if(c==i) printf("C");
+                        if(aEat==i) printf("A");
+                        if(bEat==i) printf("B");
+                        if(cEat==i) printf("C");
                         if(i<3) printf(" ");
                     }
                     printf("\n");
