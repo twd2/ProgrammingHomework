@@ -1,14 +1,15 @@
-#include<cstdio>
+#include <cstdio>
+
 int main()
 {
-    for(char i='A';i<='D';++i)
+    for (char i = 'A'; i <= 'D'; ++i)
     {
-        int count=
-            (i!='A')+
-            (i=='D')+
-            (i=='B')+
-            (i!='D');
-        if(count==1)
+        int count =
+            (i != 'A') +
+            (i == 'D') +
+            (i == 'B') +
+            (i != 'D');
+        if (count == 1)
         {
             printf("%c\n", i);
             break;
