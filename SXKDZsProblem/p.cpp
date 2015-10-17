@@ -8,21 +8,21 @@ using namespace std;
 
 vector<string> split(const string &s, const string &delim)
 {
-	size_t last = 0;
-	size_t index = s.find_first_of(delim, last);
-	vector<string> vec_ret;
+    size_t last = 0;
+    size_t index = s.find_first_of(delim, last);
+    vector<string> vec_ret;
 
-	while (index != string::npos)
-	{
-		vec_ret.push_back(s.substr(last, index - last));
-		last = index + 1;
-		index = s.find_first_of(delim, last);
-	}
-	if (index - last > 0)
-	{
-		vec_ret.push_back(s.substr(last, index - last));
-	}
-	return vec_ret;
+    while (index != string::npos)
+    {
+        vec_ret.push_back(s.substr(last, index - last));
+        last = index + 1;
+        index = s.find_first_of(delim, last);
+    }
+    if (index - last > 0)
+    {
+        vec_ret.push_back(s.substr(last, index - last));
+    }
+    return vec_ret;
 }
 
 int indexOf(vector<string> &a, string &s)
@@ -65,34 +65,34 @@ int main()
     while (true)
     {
 
-		string nameLine;
-		getline(cin, nameLine);
-		if (nameLine.size() == 0 || cin.eof())
-		{
-			break;
-		}
+        string nameLine;
+        getline(cin, nameLine);
+        if (nameLine.size() == 0 || cin.eof())
+        {
+            break;
+        }
 
-		nameLine.erase(0, 1);
-		nameLine.erase(nameLine.size() - 1, 1);
+        nameLine.erase(0, 1);
+        nameLine.erase(nameLine.size() - 1, 1);
 
         if (nameLine.size() == 0)
-		{
-			continue;
-		}
+        {
+            continue;
+        }
 
-		vector<string> friendName = split(nameLine, string(" "));
+        vector<string> friendName = split(nameLine, string(" "));
     
         if (friendName.size() > 0)
         {
             friendCircle.push_back(friendName);
         }
-	}
-	
-	int size = friendCircle.size();	
-	
-	bool found = false;
-	do
-	{
+    }
+    
+    int size = friendCircle.size();    
+    
+    bool found = false;
+    do
+    {
         found = false;
         for (int i = 0; i < size; ++i)
         {
@@ -109,18 +109,18 @@ int main()
                 }
             }
         }
-	} while (found);
-	
-	for (int i = 0; i < size; ++i)
-	{
+    } while (found);
+    
+    for (int i = 0; i < size; ++i)
+    {
         vector<string> &a = friendCircle[i];
         sort(a.begin(), a.end());
-	}
-	
-	sort(friendCircle.begin(), friendCircle.end(), myComp);
-	
+    }
+    
+    sort(friendCircle.begin(), friendCircle.end(), myComp);
+    
     for (int i = 0; i < size; ++i)
-	{
+    {
         vector<string> &a = friendCircle[i];
         if (a.size() == 0) break;
         int nameCount = a.size();
@@ -131,6 +131,6 @@ int main()
             if (j < nameCount - 1) cout << " ";
         }
         cout << "}" << endl;
-	}
+    }
     return 0;
 }
