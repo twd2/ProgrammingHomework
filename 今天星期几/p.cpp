@@ -6,7 +6,7 @@ int main()
 	int is[8], isNot[8];
 	for (int i = 0; i < 8; ++i)
 	{
-		cin>>is[i]>>isNot[i];
+		cin >> is[i] >> isNot[i];
 	}
 	
 	for (int day = 1; day <= 7; ++day)
@@ -22,7 +22,7 @@ int main()
 		}
 		if (found)
 		{
-			cout<<day<<endl;
+			cout << day << endl;
 			break;
 		}
 	}
