@@ -6,7 +6,7 @@ using namespace std;
 int main()
 {
 	int n, a[10050], b[10050], maxX = 0;
-	double minD = 10000.0 * 1000000.0 * 10.0;
+	long long minD = 10000L * 1000000 * 10;
 	int minX = -1;
 	cin >> n;
 	for (int i = 0; i < n; ++i)
@@ -19,12 +19,12 @@ int main()
 		cin >> b[i];
 	}
 	
-	for (int x = 0; x < maxX; ++x)
+	for (int x = 0; x <= maxX; ++x)
 	{
-		double D = 0.0;
+		long long D = 0;
 		for (int i = 0; i < n; ++i)
 		{
-			D += fabs(a[i] - x) * b[i];
+			D += abs(a[i] - x) * b[i];
 		}
 		//cout << D << endl;
 		if (D < minD) 
@@ -35,13 +35,7 @@ int main()
 	}
 	
 	const int mod = 10007;
-	long long longD = 0;
 	
-	for (int i = 0; i < n; ++i)
-	{
-		longD += ((abs(a[i] - minX) % mod) * (b[i] % mod)) % mod;
-		longD %= mod;
-	}
-	cout << minX << " " << longD << endl;
+	cout << minX << " " << minD % 10007 << endl;
 	return 0;
 }
