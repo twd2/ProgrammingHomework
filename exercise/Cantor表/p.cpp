@@ -4,6 +4,7 @@ using namespace std;
 #define CALC(n) ((n) * ((n) + 1) / 2)
 #define SIZE_OF_TABLE 5000
 
+//find n: 1+...+n <= sum < 1+...+n+(n+1)
 int findSum(int sum, int left, int right)
 {
 	int middle = (left + right) / 2;
