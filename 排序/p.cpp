@@ -15,7 +15,7 @@ struct Person
 	vector<Thing> things;
 };
 
-int CompareThing(const Thing &a, const Thing &b)
+int CompareThings(const Thing &a, const Thing &b)
 {
 	if (a.a < b.a)
 		return -1;
@@ -29,9 +29,9 @@ int CompareThing(const Thing &a, const Thing &b)
 		return 0;
 }
 
-bool CompareThingBool(const Thing &a, const Thing &b)
+bool CompareThingsBool(const Thing &a, const Thing &b)
 {
-	return CompareThing(a, b) > 0;
+	return CompareThings(a, b) > 0;
 }
 
 bool ComparePeople(const Person &a, const Person &b)
@@ -43,7 +43,7 @@ bool ComparePeople(const Person &a, const Person &b)
 		if (i >= countA && i < countB) return false; //B is more important
 		if (i >= countB && i < countA) return true; //A is more important
 		if (i >= countA && i >= countB) break;
-		int cmp = CompareThing(a.things[i], b.things[i]);
+		int cmp = CompareThings(a.things[i], b.things[i]);
 		if (cmp != 0)
 		{
 			return cmp > 0;
@@ -75,7 +75,7 @@ int main()
 			cin >> thingId;
 			people[i].things.push_back(things[thingId - 1]);
 		}
-		sort(people[i].things.begin(), people[i].things.end(), CompareThingBool);
+		sort(people[i].things.begin(), people[i].things.end(), CompareThingsBool);
 	}
 	sort(people, people + m, ComparePeople);
 	
