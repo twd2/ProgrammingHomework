@@ -1,22 +1,24 @@
 #include <iostream>
 using namespace std;
-
+ 
 #define MOD 1000000007
+
+long long f[1000000];
 
 int main()
 {
 	int n;
-	long long f[1000000], fac = 1;
+	long long fac = 1, c = 1;
 	f[1] = 0;
 	
 	cin >> n;
 	for (int i = 2; i <= n; ++i)
 	{
-		fac = (fac * i) % MOD;
-		f[i] = (fac - ((i * f[i - 1]) % MOD) - 1) % MOD;
-		cout << i << " " << f[i] << endl;
+		f[i] = (((i * f[i - 1]) % MOD) + c) % MOD;
+		while (f[i] < 0) f[i] += MOD;
+		c = -c;
+		//cout << i << " " << f[i] << endl;
 	}
-	
-	cout << (MOD + f[n]) % MOD << endl;
+	cout << f[n] % MOD << endl;
 	return 0;
 }
