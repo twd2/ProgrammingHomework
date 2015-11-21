@@ -6,11 +6,11 @@ using namespace std;
 struct MyVector
 {
 	void **data;
-	int cap;
-	int size;
+	size_t cap;
+	size_t size;
 };
 
-MyVector *vector_new(int cap)
+MyVector *vector_new(size_t cap)
 {
     if (cap <= 0) return NULL;
     MyVector *vec = (MyVector *)malloc(sizeof(MyVector));
@@ -38,9 +38,29 @@ void vector_add(MyVector *vec, void *x)
 	++vec->size;
 }
 	
-void **vector_get(MyVector *vec, int i)
+void **vector_get(MyVector *vec, size_t i)
 {
 	return vec->data + i;
+}
+
+size_t vector_size(MyVector *vec)
+{
+    return vec->size;
+}
+
+size_t vector_capacity(MyVector *vec)
+{
+    return vec->cap;
+}
+
+void **vector_begin(MyVector *vec)
+{
+    return vec->data;
+}
+
+void **vector_end(MyVector *vec)
+{
+    return vec->data + vec->size;
 }
 
 void vector_free(MyVector *vec)
