@@ -1,10 +1,9 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <algorithm>
 using namespace std;
 
-int n = 10;
-int *a;
 void mysort(int *begin, int *end)
 {
 	//cout << begin << "~" << end << endl;
@@ -25,7 +24,7 @@ void mysort(int *begin, int *end)
 		int temp; //temporary area
 		
 		//find a smaller number
-		while (left <= right && (*right >= pivot || right == ptrPivot))
+		while (left <= right && (*right > pivot || right == ptrPivot))
 		{
 			if (right < ptrPivot)
 			{
@@ -33,13 +32,13 @@ void mysort(int *begin, int *end)
 			}
 			--right;
 		}
-		if (left <= right && *right < pivot)
+		if (left <= right && *right <= pivot)
 		{
 			temp = *right;
 			//cout << "temp: " << temp << endl;
 		}
 		//find a lager number
-		while (left <= right && (*left <= pivot || left == ptrPivot))
+		while (left <= right && (*left < pivot || left == ptrPivot))
 		{
 			if (left > ptrPivot)
 			{
@@ -47,7 +46,7 @@ void mysort(int *begin, int *end)
 			}
 			++left;
 		}
-		if (left <= right && *left > pivot)
+		if (left <= right && *left >= pivot)
 		{
 			if (right < ptrPivot)
 			{
@@ -61,7 +60,7 @@ void mysort(int *begin, int *end)
 		
 			if (left > ptrPivot)
 			{
-					*(left - 1) = temp;
+				*(left - 1) = temp;
 			}
 			else
 			{
@@ -74,10 +73,9 @@ void mysort(int *begin, int *end)
 			cout << a[i] << " ";
 		cout << endl;*/
 	}
-	
 	if (left > ptrPivot)
 	{
-			*(left - 1) = pivot;
+		*(left - 1) = pivot;
 	}
 	else
 	{
@@ -88,22 +86,30 @@ void mysort(int *begin, int *end)
 	for (int i = 0; i < n; ++i)
 			cout << a[i] << " ";
 	cout << endl;*/
-	
-	//I assume left == right
-	
-	//*left = pivot;
-	mysort(begin, left);
-	mysort(right + 1, end);
+
+	if (left > ptrPivot)
+	{
+		mysort(begin, left - 1);
+	}
+	else
+	{
+		mysort(begin, left);
+	}
+	if (right < ptrPivot)
+	{
+		mysort(right + 1 + 1, end);
+	}
+	else
+	{
+		mysort(right + 1, end);
+	}
 }
 
-bool check(int *begin, int *end)
+bool check(int *a, int *b, int n)
 {
-	if (end <= begin + 1) return true;
-	int *current = begin;
-	while (current < end - 1)
+	for (int i = 0; i < n; ++i)
 	{
-		if (*current > *(current + 1)) return false;
-		++current;
+		if (a[i] != b[i]) return false;
 	}
 	return true;
 }
@@ -112,29 +118,45 @@ int main()
 {
 	srand(time(NULL));
 	
-	int n = 10;
+	int n = 1000000;
+	int *a, *b;
 	a = new int[n];
+	b = new int[n];
 	
-	int count = 100;
+	int count = 10;
 	
 	while (count --> 0)
 	{
+		//generate random numbers
 		for (int i = 0; i < n; ++i)
-			a[i] = rand() % 100;
+			a[i] = rand();
+		for (int i = 0; i < n; ++i)
+			b[i] = a[i];
 		
-		for (int i = 0; i < n; ++i)
+		
+		/*for (int i = 0; i < n; ++i)
 			cout << a[i] << " ";
-		cout << endl;
+		cout << endl;*/
 		
+		cout << "-" << endl;
 		mysort(a, a + n);
-
-		for (int i = 0; i < n; ++i)
-			cout << a[i] << " ";
-		cout << endl;
+		cout << "." << endl;
+		sort(b, b + n);
+		cout << ".." << endl;
 		
-		if (!check(a, a + n))
+		if (!check(a, b, n))
 		{
 			cout << "FALSE" << endl;
+			for (int i = 0; i < n; ++i)
+				cout << a[i] << " ";
+			cout << endl;
+			for (int i = 0; i < n; ++i)
+				cout << b[i] << " ";
+			cout << endl;
+		}
+		else
+		{
+			//cout << "true" << endl;
 		}
 	}
 	delete a;
