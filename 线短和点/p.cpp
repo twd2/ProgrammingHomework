@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
 using namespace std;
-
+ 
 struct I
 {
 	int left, right;
@@ -18,7 +18,7 @@ struct I
 		return left <= a.left && right >= a.right;
 	}
 };
-
+ 
 bool myCompareI(const I &a, const I &b)
 {
 	if (a.left < b.left) return true;
@@ -30,7 +30,7 @@ bool myComparePoint(const int &a, const int &b)
 {
 	return a >= b;
 }
-
+ 
 int main()
 {
     I Ix[20000];
@@ -48,11 +48,9 @@ int main()
 		Ix[i].enable = true;
 	}
 	sort(points, points + n, myComparePoint);
-	sort(Ix, Ix + m, myCompareI);
 	
-	
+	//去除包含了更小区间的区间
 	int disabledCount = 0;
-	
 	for (int i = 0; i < m; ++i)
 	{
 		//if (!Ix[i].enable) continue;
@@ -61,58 +59,47 @@ int main()
 			if (!Ix[j].enable || i == j) continue;
 			if (Ix[j].contains(Ix[i]))
 			{
+				Ix[j].left = Ix[j].right = 0x7FFFFFFF;
 				Ix[j].enable = false;
 				++disabledCount;
 				//cout << "Disabled: [" << Ix[j].left << ", " << Ix[j].right << "]" << endl;
 			}
 		}
 	}
-	//cout << disabledCount << endl;
-	
-	int pointCount = 0;
+	sort(Ix, Ix + m, myCompareI);
+		
+	int ICount = m - disabledCount;
+	int usedCount = 0;
 	int coveredCount = 0;
-	while (coveredCount < m - disabledCount)
+	for (int i = 0; i < ICount; ++i)
 	{
-		int minPointIndex = -1;
-		int minIIndex = -1;
-		int minDistance = 0x7FFFFFFF;
-		for (int i = 0; i < m; ++i)
+		if (!Ix[i].enable) continue;
+		if (!Ix[i].covered)
 		{
-			if (!Ix[i].enable) continue;
-			if (!Ix[i].covered)
+			for (int j = 0; j < n; ++j)
 			{
-				for (int j = 0; j < n; ++j)
+				if (Ix[i].contains(points[j]))
 				{
-					if (Ix[i].contains(points[j]))
+					Ix[i].covered = true;
+					++coveredCount;
+					++usedCount;
+					for (int k = 0; k < ICount; ++k)
 					{
-						int currentDistance = Ix[i].right - points[j];
-						if (currentDistance < minDistance)
+						if (Ix[k].enable && !Ix[k].covered && Ix[k].contains(points[j]))
 						{
-							minDistance = currentDistance;
-							minIIndex = i;
-							minPointIndex = j;
+							Ix[k].covered = true;
+                            //cout << "Covered: [" << Ix[k].left << ", " << Ix[k].right << "]" << endl;
+							++coveredCount;
 						}
-						break;
 					}
+					break;
 				}
-			}	
-		}
-		Ix[minIIndex].covered = true;
-		++coveredCount;
-		++pointCount;
-		for (int k = 0; k < m; ++k)
-		{
-			if (Ix[k].enable && !Ix[k].covered && Ix[k].contains(points[minPointIndex]))
-			{
-				Ix[k].covered = true;
-				cout << "Covered: [" << Ix[k].left << ", " << Ix[k].right << "]" << endl;
-				++coveredCount;
 			}
 		}
 	}
-	if (coveredCount == m - disabledCount)
+	if (coveredCount == ICount)
 	{
-		cout << pointCount << endl;
+		cout << usedCount << endl;
 	}
 	else
 	{
