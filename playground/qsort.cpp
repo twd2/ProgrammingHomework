@@ -66,6 +66,6 @@ int main()
 		cout << endl;
 		
 	}
-	delete a;
+	delete [] a;
 	return 0;
 }
