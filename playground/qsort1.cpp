@@ -4,19 +4,17 @@
 #include <algorithm>
 using namespace std;
 
+//sort [begin, end)
 void mysort(int *begin, int *end)
 {
-	//cout << begin << "~" << end << endl;
 	if (end <= begin + 1) return;
 	
 	int length = end - begin;
-	//cout << length << endl;
 	int *left = begin, *right = end - 1;
 	
+	//pick a pivot randomly
 	int *ptrPivot = left + rand() % length;
 	int pivot = *ptrPivot; //left hand
-
-	//cout << "pick: " << pivot << endl;
 
 	//make partition
 	while (left <= right)
@@ -35,8 +33,8 @@ void mysort(int *begin, int *end)
 		if (left <= right && *right <= pivot)
 		{
 			temp = *right;
-			//cout << "temp: " << temp << endl;
 		}
+		
 		//find a lager number
 		while (left <= right && (*left < pivot || left == ptrPivot))
 		{
@@ -68,11 +66,9 @@ void mysort(int *begin, int *end)
 			}
 			++left;
 		}
-		
-		/*for (int i = 0; i < n; ++i)
-			cout << a[i] << " ";
-		cout << endl;*/
 	}
+	
+	//place pivot where it should be
 	if (left > ptrPivot)
 	{
 		*(left - 1) = pivot;
@@ -81,12 +77,8 @@ void mysort(int *begin, int *end)
 	{
 		*left = pivot;
 	}
-	//*left = pivot;
-	/*cout << "[" << left - a << "] = " << pivot << endl;
-	for (int i = 0; i < n; ++i)
-			cout << a[i] << " ";
-	cout << endl;*/
 
+	//left part
 	if (left > ptrPivot)
 	{
 		mysort(begin, left - 1);
@@ -95,6 +87,8 @@ void mysort(int *begin, int *end)
 	{
 		mysort(begin, left);
 	}
+	
+	//right part
 	if (right < ptrPivot)
 	{
 		mysort(right + 1 + 1, end);
@@ -114,9 +108,35 @@ bool check(int *a, int *b, int n)
 	return true;
 }
 
+void hello()
+{
+	int n;
+	cin >> n;
+	int *a;
+	a = new int[n];
+	
+	for (int i = 0; i < n; ++i)
+	{
+		cin >> a[i];
+	}
+	
+	mysort(a, a + n);
+	
+	for (int i = 0; i < n; ++i)
+	{
+		cout << a[i] << " ";
+	}
+	cout << endl;
+	
+	delete [] a;
+}
+
 int main()
 {
 	srand(time(NULL));
+	
+	hello();
+	return 0;
 	
 	int n = 1000000;
 	int *a, *b;
@@ -132,7 +152,6 @@ int main()
 			a[i] = rand();
 		for (int i = 0; i < n; ++i)
 			b[i] = a[i];
-		
 		
 		/*for (int i = 0; i < n; ++i)
 			cout << a[i] << " ";
@@ -159,6 +178,7 @@ int main()
 			//cout << "true" << endl;
 		}
 	}
-	delete a;
+	delete [] a;
+	delete [] b;
 	return 0;
 }
