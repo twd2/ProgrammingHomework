@@ -67,36 +67,23 @@ void mysort(int *begin, int *end)
 			++left;
 		}
 	}
-	
-	//place pivot where it should be
 	if (left > ptrPivot)
 	{
-		*(left - 1) = pivot;
+		--left;
 	}
-	else
-	{
-		*left = pivot;
-	}
-
-	//left part
-	if (left > ptrPivot)
-	{
-		mysort(begin, left - 1);
-	}
-	else
-	{
-		mysort(begin, left);
-	}
-	
-	//right part
 	if (right < ptrPivot)
 	{
-		mysort(right + 1 + 1, end);
+		++right;
 	}
-	else
-	{
-		mysort(right + 1, end);
-	}
+	
+	//place pivot where it should be
+	*left = pivot;
+
+	//left part
+	mysort(begin, left);
+	
+	//right part
+	mysort(left + 1, end);
 }
 
 bool check(int *a, int *b, int n)
@@ -143,7 +130,7 @@ int main()
 	a = new int[n];
 	b = new int[n];
 	
-	int count = 10;
+	int count = 100;
 	
 	while (count --> 0)
 	{
