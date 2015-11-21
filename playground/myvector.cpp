@@ -41,6 +41,7 @@ public:
 		data[size] = x;
 		++size;
 	}
+	
 	int *get(int i)
 	{
 		return data + i;
