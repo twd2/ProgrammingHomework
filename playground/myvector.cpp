@@ -3,66 +3,75 @@
 #include <cstdlib>
 using namespace std;
 
-class myvector
+struct MyVector
 {
-private:
-	int *data;
+	void **data;
 	int cap;
 	int size;
-	
-public:
-	myvector() : cap(8), size(0)
-	{
-		data = (int *)malloc(cap * sizeof(int));
-	}
-	
-	myvector(int cap) : cap(cap), size(0)
-	{
-		if (cap <= 0) throw "cap <= 0";
-		data = (int *)malloc(cap * sizeof(int));
-	}
-	
-	~myvector()
-	{
-		if (data != NULL)
-		{
-			free(data);
-			data = NULL;
-		}
-	}
-	
-	void add(int x)
-	{
-		if (size == cap)
-		{
-			cap *= 2;
-			data = (int *)realloc(data, cap * sizeof(int));
-		}
-		data[size] = x;
-		++size;
-	}
-	
-	int *get(int i)
-	{
-		return data + i;
-	}
 };
+
+MyVector *vector_new(int cap)
+{
+    if (cap <= 0) return NULL;
+    MyVector *vec = (MyVector *)malloc(sizeof(MyVector));
+    vec->cap = cap;
+    vec->size = 0;
+    vec->data = (void **)malloc(vec->cap * sizeof(void *));
+    return vec;
+}
+
+/*
+MyVector *vector_new()
+{
+    return vector_new(8);
+}
+*/
+
+void vector_add(MyVector *vec, void *x)
+{
+	if (vec->size == vec->cap)
+	{
+		vec->cap *= 2;
+		vec->data = (void **)realloc(vec->data, vec->cap * sizeof(void *));
+	}
+	vec->data[vec->size] = x;
+	++vec->size;
+}
+	
+void **vector_get(MyVector *vec, int i)
+{
+	return vec->data + i;
+}
+
+void vector_free(MyVector *vec)
+{
+    delete [] vec->data;
+    vec->data = NULL;
+    delete vec;
+    vec = NULL;
+}
 
 int main()
 {
-	myvector a;
-	int n;
-	cin >> n;
-	for (int i = 0; i < n; ++i)
-	{
-		int x;
-		cin >> x;
-		a.add(x);
+    for(;;)
+    {
+        MyVector *a = vector_new(8);
+        int n = 100000000;
+        //cin >> n;
+        for (int i = 0; i < n; ++i)
+        {
+            //int x;
+            //cin >> x;
+            vector_add(a, (void *)(n - i));
+        }
+        for (int i = 0; i < n; ++i)
+        {
+            int b = (int)(*(vector_get(a, i)));
+            //cout << (int)(*(vector_get(a, i))) << " ";
+        }
+        cout << "." << endl;
+        vector_free(a);
+        a = NULL;
 	}
-	for (int i = 0; i < n; ++i)
-	{
-		cout << *(a.get(i)) << " ";
-	}
-	cout << endl;
 	return 0;
 }
