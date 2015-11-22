@@ -59,7 +59,7 @@ void** map_get(MapNode* node, const char *str)
 
 void map_free(MapNode *node)
 {
-    if(!node) return;
+    if (!node) return;
     node->value = NULL;
     for (int i = 0; i < 256; ++i)
     {
@@ -73,7 +73,7 @@ void map_free(MapNode *node)
 
 int main()
 {
-    for(;;)
+    for (;;)
     {
         MapNode *root = map_new();
         map_add(root, "test1", (void *)1);

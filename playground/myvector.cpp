@@ -73,7 +73,7 @@ void vector_free(MyVector *vec)
 
 int main()
 {
-    for(;;)
+    for (;;)
     {
         MyVector *a = vector_new(8);
         int n = 100000000;
