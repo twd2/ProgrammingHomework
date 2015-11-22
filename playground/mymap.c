@@ -1,9 +1,9 @@
-#include <iostream>
-#include <cstdlib>
+#include <stdio.h>
+#include <stdlib.h>
 
-using namespace std;
-
-struct MapNode
+struct _MapNode;
+typedef struct _MapNode MapNode;
+struct _MapNode
 {
     void *value;
     MapNode *subNodes[256];
@@ -81,9 +81,9 @@ int main()
         map_add(root, "tfst1", (void *)3);
         map_add(root, "abcdef", (void *)4);
 
-        cout << *map_get(root, "test1") << endl;
-        *map_get(root, "test1") = (void *)0x233;
-        cout << *map_get(root, "test1") << endl;
+        //printf("%d\n", (int)(*map_get(root, "test1")));
+        *map_get(root, "test1") = (void *)2333;
+        //printf("%d\n", (int)(*map_get(root, "test1")));
         map_free(root);
         root = NULL;
     }
