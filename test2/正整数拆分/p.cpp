@@ -1,4 +1,4 @@
-#include <cstdio>
+#include <cstdio> //似乎必须要使用printf，否则会超时
 using namespace std;
 
 void foo(int n, int *data, int size)
