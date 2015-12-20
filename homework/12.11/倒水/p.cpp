@@ -24,6 +24,9 @@ void foo()
 		++qHead;
 		qHead %= Q_LENGTH;
 		
+		if (checked[t.water])
+			continue;
+		
 		if (t.water == q)
 		{
 			if (minStep > t.step) minStep = t.step;

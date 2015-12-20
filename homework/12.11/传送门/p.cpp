@@ -53,7 +53,8 @@ void foo()
 		++qHead;
 		qHead %= Q_LENGTH;
 		
-		//print(t.p1, t.p2);
+		if (checked[t.p1][t.p2])
+			continue;
 		
 		if (meet(t.p1, t.p2))
 		{

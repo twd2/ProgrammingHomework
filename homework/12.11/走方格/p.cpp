@@ -35,7 +35,6 @@ void foo()
 				Q[qTail] = t;
 				++qTail;
 				qTail %= Q_LENGTH;
-				checked[t.y][t.x] = true;
 			}
 		}
 	}
@@ -45,6 +44,9 @@ void foo()
 		task t = Q[qHead];
 		++qHead;
 		qHead %= Q_LENGTH;
+		
+		if (checked[t.y][t.x])
+			continue;
 		
 		if (m[t.y][t.x] == 'E')
 		{

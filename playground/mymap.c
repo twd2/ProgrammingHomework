@@ -71,6 +71,24 @@ void map_free(MapNode *node)
     node = NULL;
 }
 
+void map_deepfree(MapNode *node)
+{
+	if (!node) return;
+	if (node->value)
+	{
+		free(node->value);
+		node->value = NULL;
+	}
+	for (int i = 0; i < 256; ++i)
+	{
+		if (node->subNodes[i])
+			map_deepfree(node->subNodes[i]);
+		node->subNodes[i] = NULL;
+	}
+	free(node);
+	node = NULL;
+}
+
 int main()
 {
     for (;;)
