@@ -1,22 +1,5 @@
 #include <iostream>
 using namespace std;
- 
-#define CALC(n) ((n) * ((n) + 1) / 2)
-#define SIZE_OF_TABLE 5000
- 
-int findSum(int sum, int left, int right)
-{
-	int middle = (left + right) / 2;
-	int a, b;
-	a = CALC(middle);
-	b = CALC(middle + 1);
-	if (sum >= a && sum < b)
-		return middle;
-	else if (sum < a)
-		return findSum(sum, left, middle - 1);
-	else
-		return findSum(sum, middle + 1, right);
-}
 
 int main()
 {
@@ -166,5 +149,5 @@ int main()
         cout << endl;
     }
     
-	return 0;
+    return 0;
 }
