@@ -122,7 +122,7 @@ Stat parse(map<string, int> &ids, string s, int &outWho)
  
 int main()
 {
-    vector<string> people;
+    vector<string> names;
     map<string, int> ids;
     vector<vector<Stat> > stats;
     int m, n, p;
@@ -132,7 +132,7 @@ int main()
     for (int i = 0; i < m; ++i)
     {
         getline(cin, s);
-        people.push_back(s);
+        names.push_back(s);
         stats.push_back(vector<Stat>());
         ids[s] = i + 1;
     }
@@ -211,7 +211,7 @@ int main()
     }
     else
     {
-        cout << people[trueGuilty] << endl;
+        cout << names[trueGuilty] << endl;
     }
 	return 0;
 }
